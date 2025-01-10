@@ -7,21 +7,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ff3-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ff3-{{ version }}.tar.gz
   sha256: ff892c7472509c17f68cb4907f8af7fc91835cb68c260e2ab7597b57ad44bc7a
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - setuptools
+    - python {{ python_min }}
   run:
     - pycryptodome
-    - python >=3.8
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -31,6 +32,7 @@ test:
     - python3 -m ff3.ff3_test
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/mysto/python-fpe
