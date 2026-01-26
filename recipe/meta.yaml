@@ -1,5 +1,5 @@
 {% set name = "ff3" %}
-{% set version = "1.0.2" %}
+{% set version = "1.0.3" %}
 
 
 package:
@@ -8,10 +8,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ff3-{{ version }}.tar.gz
-  sha256: ff892c7472509c17f68cb4907f8af7fc91835cb68c260e2ab7597b57ad44bc7a
+  sha256: 88e37be28d26fa498bb9dc0f911923f0f2f26c02a1a6d1efb84ac5ebd66ae4af
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
