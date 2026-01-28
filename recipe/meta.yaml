@@ -30,8 +30,8 @@ test:
     - ff3
   commands:
     - pip check
-    - ff3_encrypt --help
-    - ff3_decrypt --help
+    - ff3_encrypt 2DE79D232DF5585D68CE47882AE256D6 CBD09280979564 3992520240 | grep 8901801106
+    - ff3_decrypt 2DE79D232DF5585D68CE47882AE256D6 CBD09280979564 8901801106 | grep 3992520240
   requires:
     - pip
     - python {{ python_min }}.*
