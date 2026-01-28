@@ -1,38 +1,40 @@
-{% set name = "ff3" %}
-{% set version = "1.0.2" %}
-
+{% set version = "1.0.3" %}
 
 package:
   name: python-fpe
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ff3-{{ version }}.tar.gz
-  sha256: ff892c7472509c17f68cb4907f8af7fc91835cb68c260e2ab7597b57ad44bc7a
+  url: https://pypi.org/packages/source/f/ff3/ff3-{{ version }}.tar.gz
+  sha256: 88e37be28d26fa498bb9dc0f911923f0f2f26c02a1a6d1efb84ac5ebd66ae4af
 
 build:
-  number: 1
+  entry_points:
+    - ff3_encrypt = ff3.__main__:encrypt
+    - ff3_decrypt = ff3.__main__:decrypt
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
 
 requirements:
   host:
+    - python {{ python_min }}.*
     - pip
     - setuptools
-    - python {{ python_min }}
   run:
-    - pycryptodome
     - python >={{ python_min }}
+    - pycryptodome
 
 test:
   imports:
     - ff3
   commands:
     - pip check
-    - python3 -m ff3.ff3_test
+    - ff3_encrypt 2DE79D232DF5585D68CE47882AE256D6 CBD09280979564 3992520240 | grep 8901801106
+    - ff3_decrypt 2DE79D232DF5585D68CE47882AE256D6 CBD09280979564 8901801106 | grep 3992520240
   requires:
     - pip
-    - python {{ python_min }}
+    - python {{ python_min }}.*
 
 about:
   home: https://github.com/mysto/python-fpe
